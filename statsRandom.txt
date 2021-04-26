@@ -1,0 +1,135 @@
+/*
+	Uses JFlatRTL to perform calculations on lists with random numbers
+	
+	Adds n random ints [-50, 49] to a list and prints out the list
+	Then prints the mean, sample variance, and sample standard variance.
+	Finally sorts the list, and prints the list again
+	
+	-1111111111, -2222222222, ... are used as separators in the output
+	
+
+	Tests functions, 
+*/
+
+var i = createNewList();
+
+var n = 10;
+
+var j = 0;
+while(j < n) {
+    addToList(i, randomInt(100, -50));
+	j = j + 1;
+}
+
+printList(i);
+
+function int randomInt(int range, int start) {
+    return toInt(toReal(range) * random()) + start;
+}
+
+print(-11111111);
+
+
+function real calcMean(int i) {
+    var j = 0;
+    var sum = 0;
+    var n = listSize(i);
+
+    while(j < n) {
+        sum = sum + getFromList(i,j);
+        j = j + 1;
+    }
+    return toReal(sum) / toReal(n);
+}
+
+function real calcSampleVar(int i) {
+    var n = listSize(i);
+    var total = 0.0;
+    var mean = calcMean(i);
+    var j = 0;
+
+    while(j < n) {
+        var temp = toReal(getFromList(i,j)) - mean;
+        total = total + temp*temp;
+        j = j + 1;
+    }
+
+    return total / toReal(n - 1);
+}
+
+function real calcStandardSampleVar(int i) {
+	return sqrtr(calcSampleVar(i));
+}
+
+
+var iMean = calcMean(i);
+var iVar = calcSampleVar(i);
+var iSVar = calcStandardSampleVar(i);
+print(iMean);
+print(iVar);
+print(iSVar);
+
+print(-22222222);
+
+function int getSmallestValue(int i, int max) {
+    var n = listSize(i);
+    var smallest = max;
+    var j = 0;
+    
+    while (j < n) {
+        if (getFromList(i,j) < smallest)
+            smallest = getFromList(i,j);
+        j = j + 1;
+    }
+    return smallest;
+}
+
+function int getSmallestIndex(int i, int max) {
+    return getSmallestIndexFrom(i, max, 0);;
+}
+
+function int getSmallestIndexFrom(int i, int max, int start) {
+    var n = listSize(i);
+    var smallest = max;
+	var index = 0;
+    var j = start;
+    
+    while (j < n) {
+        if (getFromList(i,j) < smallest) {
+            smallest = getFromList(i,j);
+			index = j;
+		}
+        j = j + 1;
+    }
+    return index;
+}
+
+function void printList(int i) {
+    var j = 0;
+    var n = listSize(i);
+    while (j < n) {
+        print(getFromList(i,j));
+        j = j + 1;
+    }
+}
+
+function void swap(int i, int j, int k) {
+	var temp = getFromList(i,j);
+	setToList(i,j, getFromList(i,k));
+	setToList(i,k, temp);
+}
+
+function void sortList(int i) {
+	var j = 0;
+	var n = listSize(i);
+	var max = 1000;
+	
+	while (j < n - 1) {
+		var index = getSmallestIndexFrom(i, 1000, j);
+		swap(i, j, index);
+		j = j + 1;
+	}
+}
+
+sortList(i);
+printList(i);

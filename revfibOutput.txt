@@ -1,0 +1,12 @@
+34
+21
+13
+8
+5
+3
+2
+1
+1
+0
+
+                0.01 seconds total execution time.

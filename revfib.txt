@@ -1,0 +1,14 @@
+fib(10);
+
+
+function void fib(int n) {
+    revFib(n, -1, 1, 0);
+}
+
+
+function void revFib(int n, int a, int b, int sum) {
+    if (sum < n) {
+        revFib(n, b, a + b, sum + 1);
+        print(a + b);
+    }
+}

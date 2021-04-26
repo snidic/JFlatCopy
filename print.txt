@@ -1,0 +1,25 @@
+//0 is false 1 is true
+// tests print statements and the various expressions
+print(1>2);
+print(2>1);
+print((1<2));
+print(2<1);
+print(1<=2);
+print(2<=1);
+print(2<=2);
+print(1>=2);
+print(2>=1);
+print(2>=2);
+print(1==2);
+print(2==2);
+print(2+2);
+var i;
+print(i = 2);
+print(2 + 4/2);
+print((2 + 4)/2);
+print(2.0 + 1.2);
+print(-3.0 * 2.0);
+print(-4.0/-3.0);
+print(random());
+print(toInt(random()));
+

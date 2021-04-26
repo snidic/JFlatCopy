@@ -1,0 +1,3 @@
+A white paint panel will open up. When the program closes, 
+                ?.?? seconds total execution time.
+will appear.

@@ -1,0 +1,84 @@
+/*
+	Creates a paint program
+	Left click to draw
+	Right click to switch colors loaded into the palette
+	Requires JFlatRTL.jar and PascalRTL.jar
+	
+	Tests variable assignments, while loops, if statements, function calls and declarations
+*/
+var width = 1000;
+var height = 500;
+
+var r = 0;
+var g = 0;
+var b = 0;
+
+var black = addColor(r,g,b);
+var white = addColor(255,255,255);
+var red = addColor(255,0,0);
+var green = addColor(0,255,0);
+var blue = addColor(0,0,255);
+
+createPaintGUI(width, height);
+
+var active = true;
+var leftClick = false;
+var rightClick = false;
+var leftTrigger = false;
+var rightTrigger = false;
+var dragged = false;
+var mouseX = 0;
+var mouseY = 0;
+var colorIndex = 0;
+
+while(active) {
+    leftClick = isLeftClick();
+    rightClick = isRightClick();
+    dragged = isDrag();
+    mouseX = getMouseX();
+    mouseY = getMouseY();
+
+    // Left mouse held
+    if (leftClick) {
+        // Initial Left Click
+        // Create a new line 
+        if(leftTrigger == false) {
+            createLine(mouseX, mouseY, colorIndex);
+            leftTrigger = true;
+        } else {
+            // Left click drag, add a point to the line
+            if (dragged)
+                addPoint(mouseX, mouseY);
+        }
+    } else {
+        // Initial left click release
+        if(leftTrigger) {
+            endLine(mouseX, mouseY);
+            leftTrigger = false;
+        }
+    }
+    // Right mouse held
+    if (rightClick) {
+        // Initial Right Click
+        // Change line color
+        if (rightTrigger == false) {
+            nextColorIndex();
+            rightTrigger = true;
+        }
+    } else {
+        // Initial right click release
+        if(rightTrigger) {
+            rightTrigger = false;
+        }
+    }
+    
+    refresh();
+    active = paintGUIExited();
+}
+
+function void nextColorIndex() {
+    var n = getColorSize();
+    colorIndex = colorIndex + 1;
+    if (colorIndex >= n) 
+        colorIndex = 0;
+}
